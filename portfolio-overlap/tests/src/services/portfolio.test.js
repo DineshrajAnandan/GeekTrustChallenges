@@ -101,6 +101,20 @@ describe('get fund overlaps', () => {
       fundName: MOCK_FUND.ICICI_PRU_BLUECHIP,
       overlaps: [],
     },
+    {
+      currentPortfolio: [
+        MOCK_FUND.ICICI_PRU_NIFTY_NEXT_50_INDEX,
+        MOCK_FUND.PARAG_PARIKH_CONSERVATIVE_HYBRID,
+        MOCK_FUND.ICICI_PRU_BLUECHIP,
+      ],
+      fundName: 'SBI_LARGE_&_MIDCAP',
+      overlaps: [
+        {
+          fundName: MOCK_FUND.PARAG_PARIKH_CONSERVATIVE_HYBRID,
+          percentage: '8.47',
+        },
+      ],
+    },
   ])('returns correct overlaps', ({ currentPortfolio, fundName, overlaps }) => {
     // arrange
     const mockcalculateOverlap = jest.spyOn(overlapHelper, 'calculateOverlap');

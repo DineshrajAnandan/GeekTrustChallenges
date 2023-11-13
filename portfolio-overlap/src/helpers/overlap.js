@@ -1,3 +1,5 @@
+const { COMMON } = require('../constants');
+
 /**
  * calculate overlap
  * @param {Fund} fundOne
@@ -13,8 +15,9 @@ const calculateOverlap = (fundOne, fundTwo) => {
   ).length;
 
   const overlap =
-    ((2 * noOfCommonStocks) / (fundOne.stocks.length + fundTwo.stocks.length)) *
-    100;
+    ((COMMON.multiplyingFactorForOverlapCalculation * noOfCommonStocks) /
+      (fundOne.stocks.length + fundTwo.stocks.length)) *
+    COMMON.hundredPercent;
 
   return overlap.toFixed(2);
 };

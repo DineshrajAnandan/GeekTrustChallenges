@@ -1,4 +1,4 @@
-const { MESSAGES } = require('../constants');
+const { MESSAGES, PATH } = require('../constants');
 const fetch = require('node-fetch');
 const { ValidationError } = require('../exceptions');
 
@@ -9,9 +9,7 @@ const { ValidationError } = require('../exceptions');
 let stocksData = {};
 
 const callGetStocksData = async () => {
-  const response = await fetch(
-    'https://geektrust.s3.ap-southeast-1.amazonaws.com/portfolio-overlap/stock_data.json'
-  );
+  const response = await fetch(PATH.api.stocks);
   const data = await response.json();
   return data;
 };

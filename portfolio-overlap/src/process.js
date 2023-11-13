@@ -23,8 +23,7 @@ const processCommandCalculateOverlap = (commandParams) => {
     const overlaps = portfolioService.getFundOverlaps(fundName);
     overlapHelper.printOverlaps(fundName, overlaps);
   } catch (error) {
-    if (error instanceof ValidationError) console.log(error.message);
-    else throw error;
+    processError(error);
   }
 };
 
@@ -38,22 +37,39 @@ const processCommandAddStock = (commandParams) => {
   try {
     stocksService.addStock(fundName, stockName);
   } catch (error) {
-    if (error instanceof ValidationError) console.log(error.message);
-    else throw error;
+    processError(error);
   }
 };
 
 /**
- * process the input line
+ * processError
+ * @param {Error} error
+ */
+function processError(error) {
+  if (error instanceof ValidationError) console.log(error.message);
+  else throw error;
+}
+
+/**
+ * getCommandValues
  * @param {string} inputLine
  */
-const processInput = (inputLine) => {
+function getCommandValues(inputLine) {
   const firstGapIndex = inputLine.indexOf(' ');
   const command = inputLine.slice(
     0,
     firstGapIndex == -1 ? inputLine.length : firstGapIndex
   );
   const commandParams = inputLine.replace(command, '').trim();
+  return { command, commandParams };
+}
+
+/**
+ * process the input line
+ * @param {string} inputLine
+ */
+const processInput = (inputLine) => {
+  const { command, commandParams } = getCommandValues(inputLine);
 
   switch (command) {
     case COMMANDS.CURRENT_PORTFOLIO:

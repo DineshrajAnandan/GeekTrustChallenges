@@ -1,4 +1,4 @@
-const { MESSAGES } = require('../constants');
+const { MESSAGES, COMMON } = require('../constants');
 const { overlapHelper } = require('../helpers');
 const { getFundsMapData } = require('./stock');
 const { ValidationError } = require('../exceptions');
@@ -42,6 +42,7 @@ const getFundOverlaps = (fundName) => {
   for (const portfolioFundName of portfolio) {
     const portfolioFund = fundsMap[portfolioFundName];
     const overlapPercent = overlapHelper.calculateOverlap(fund, portfolioFund);
+    if (overlapPercent == COMMON.zeroOverlap) continue;
     const overlap = {
       fundName: portfolioFundName,
       percentage: overlapPercent,
